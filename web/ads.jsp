@@ -1,10 +1,11 @@
-<%--
+<%@ page import="com.itland.naumenko.itjava.web.Util" %><%--
   Created by IntelliJ IDEA.
   User: prepod2
   Date: 12.05.2022
   Time: 20:51
   To change this template use File | Settings | File Templates.
 --%>
+<%@ page import="static com.itland.naumenko.itjava.web.Util.URL" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
@@ -13,13 +14,13 @@
     <title>Главная страница</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="<%=URL%>/style.css">
 
 </head>
 <body>
 <div class="header">
     <div class="logo">
-        <img src="img\logo.png" alt="картинка">
+        <img src="<%=URL%>/img/logo.png" alt="картинка">
     </div>
 
     <div class="auth">
@@ -52,27 +53,34 @@
     </ul>
 </nav>
 
-<c:forEach var = "ads" items="${ads}">
-    <div class="container">
-        <div class="search">
-    
+<a class="btn btn-success" href="<%=request.getContextPath()%>/ads-new">
+    created ads
+</a>
+<c:forEach var="ads" items="${ads}">
+<div class="container">
+    <div class="search">
+
+    </div>
+    <div class="content">
+        <div class="ads">
+            <img src="<%=URL%>/img/ads.jpg">
         </div>
-        <div class="content">
-            <div class="ads">
-                <img src="img\ads.jpg">
-            </div>
-            <div class="content-body">
-                <h2 style="color: black;"><c:out value="${ads.title}"/></h2>
-                <h5 style="color: green;" ><c:out value="${ads.subtitle}"/></h5>
-                    <span>
-                        <p><c:out value="${ads.description}"/></p>
-                    </span>
-                    <div class="price" style="color: orange; font-size: 25px; "><b><c:out value="${ads.price}"/></b></div>
-                    <a class="edit-ads btn btn-outline-dark" href="#">Редактировать</a>
-            </div>
+        <div class="content-body">
+            <h2 style="color: black;"><c:out value="${ads.title}"/></h2>
+            <h5 style="color: green;" ><c:out value="${ads.subtitle}"/></h5>
+                <span>
+					<p><c:out value="${ads.description}"/><a href="#">Подробнее</a></p>
+				</span>
+                <div class="price" style="color: orange; font-size: 25px; ">
+                    <b>
+                        <c:out value="${ads.price}"/>
+                    </b></div>
+                <a class="edit-ads btn btn-outline-dark" href="#">Редактировать</a>
         </div>
     </div>
+</div>
 </c:forEach>
+
 
 
 <footer>

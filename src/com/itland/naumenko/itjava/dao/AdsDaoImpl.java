@@ -14,8 +14,20 @@ public class AdsDaoImpl implements AdsDao {
     private static final String SELECT_ALL_ADS = "SELECT * FROM Ads";
 
     @Override
-    public void insert(Ads user) {
-
+    public void insert(Ads ads) {
+        try (Connection connection = DBConnection.INSTANCE.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(
+                     "INSERT INTO Ads(title,subtitle,description,price,user_id) VALUES (?,?,?,?,?)")) {
+            preparedStatement.setString(1, ads.getTitle());
+            preparedStatement.setString(2, ads.getSubtitle());
+            preparedStatement.setString(3, ads.getDescription());
+            preparedStatement.setDouble(4, ads.getPrice());
+            preparedStatement.setInt(5, 1);
+            System.out.println(preparedStatement);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
